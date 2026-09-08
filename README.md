@@ -1,16 +1,7 @@
-# 도서관을 찾아라! — GitHub 업로드용
+# 도서관을 찾아라! — 정답 가림 버전
 
-이 폴더 안의 파일을 전부 한꺼번에 GitHub 저장소 최상위에 업로드하세요.
+사진 속 퀴즈 정답이 바로 보이지 않도록 간판 글자와 숫자를 가린 버전입니다.
+참가자가 실제 현장에 가서 간판과 안내판을 직접 확인해야 정답을 알 수 있습니다.
 
-필수 구조:
-- index.html
-- paris.png
-- garosu.png
-- bath.png
-- hospital.png
-- sign80.png
-- library_sign.png
-- library_gate.png
-- README.md
-
-폴더를 만들 필요가 없습니다.
+GitHub에는 이 폴더 안의 파일을 전부 저장소 최상위에 업로드하세요.
+폴더를 따로 만들 필요가 없습니다.
