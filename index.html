@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f0e8">
+<title>도서관을 찾아라! | 유구</title>
+<style>
+:root{
+  --paper:#fffdf8; --ink:#183153; --muted:#667085; --line:#e8e4da;
+  --accent:#2d6a4f; --accent2:#f4a261; --good:#198754; --bad:#b42318;
+  --shadow:0 18px 45px rgba(29,41,57,.13);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#f3f0e8;color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR","Malgun Gothic",sans-serif}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;
+  background-image:radial-gradient(#c7bda8 0.7px,transparent .7px);
+  background-size:14px 14px;
+}
+.app{width:min(100%,520px);margin:0 auto;min-height:100vh;padding:18px 14px 28px;position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.brand{font-weight:900;letter-spacing:-.04em}
+.badge{font-size:12px;padding:7px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px;overflow:hidden}
+.hero{text-align:center;padding:28px 20px}
+.kicker{display:inline-block;background:#e8f5ee;color:var(--accent);font-weight:800;border-radius:999px;padding:7px 11px;font-size:12px;margin-bottom:12px}
+h1{font-size:34px;line-height:1.05;margin:4px 0 14px;letter-spacing:-.06em}
+h2{font-size:24px;line-height:1.25;margin:0 0 10px;letter-spacing:-.045em}
+p{line-height:1.7;margin:8px 0}
+.lead{color:#475467;font-size:16px}
+.route{margin:18px 0;padding:14px 15px;background:#f7f5ef;border-radius:16px;font-size:14px;line-height:1.6}
+.safety{font-size:13px;color:#7a5b19;background:#fff4cf;border-radius:14px;padding:12px 13px;margin:14px 0}
+.btn{width:100%;border:0;border-radius:16px;padding:15px 16px;font-weight:900;font-size:16px;cursor:pointer;transition:.16s transform,.16s opacity;background:var(--ink);color:#fff;margin-top:12px}
+.btn:active{transform:scale(.985)}
+.btn.secondary{background:#fff;color:var(--ink);border:1px solid #d6d1c6}
+.btn.good{background:var(--accent)}
+.progress{display:flex;gap:7px;margin:5px 0 16px}
+.dot{height:7px;flex:1;border-radius:999px;background:#ded9cd}
+.dot.on{background:var(--accent)}
+.photo{width:100%;max-height:300px;object-fit:contain;background:#ece9e1;border-radius:18px;border:1px solid var(--line);margin:14px 0}
+.clue{border-left:4px solid var(--accent2);background:#fff8ed;padding:12px 14px;border-radius:0 14px 14px 0;margin:14px 0;line-height:1.65}
+.question{font-weight:900;font-size:18px;margin:17px 0 10px}
+.options{display:grid;gap:9px}
+.option{border:1px solid #d9d5cb;background:#fff;border-radius:14px;padding:13px 14px;text-align:left;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer}
+.option:hover{border-color:#9fb7aa}
+.option.correct{border-color:#75b798;background:#effaf4}
+.option.wrong{border-color:#e3a09a;background:#fff2f0}
+.feedback{min-height:24px;margin-top:10px;font-weight:800;font-size:14px}
+.feedback.ok{color:var(--good)}
+.feedback.no{color:var(--bad)}
+.answer{width:100%;padding:14px 15px;border:1px solid #cfc9bc;border-radius:14px;font-size:18px;text-align:center;font-weight:900;background:#fff}
+.answer:focus{outline:3px solid rgba(45,106,79,.16);border-color:var(--accent)}
+.success{text-align:center}
+.trophy{font-size:62px;margin:4px 0}
+.gift{margin:18px 0;background:#fff3d6;border:1px solid #efd28b;border-radius:18px;padding:16px}
+.small{font-size:13px;color:var(--muted)}
+.hidden{display:none!important}
+.footer{text-align:center;color:#8a8172;font-size:11px;margin-top:16px}
+@media (max-width:380px){
+  .card{padding:18px}.hero{padding:24px 16px}h1{font-size:29px}h2{font-size:22px}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="topbar"><div class="brand">유구도서관</div><div class="badge">길찾기 미션</div></div>
+  <div id="screen"></div>
+  <div class="footer">도서관을 찾아라! · 유구도서관</div>
+</main>
+<script>
+const stages = [
+  {
+    title:"MISSION 01 · 파란 간판을 찾아라",
+    intro:"터미널 밖으로 나와 주변을 살펴보세요. 사진 속 파란색 간판을 찾으면 첫 번째 퀴즈에 도전할 수 있어요.",
+    image:"paris.png",
+    question:"PARIS는 어느 나라의 수도일까요?",
+    choices:["영국","프랑스","미국","일본"], answer:1,
+    after:"첫 번째 단서 성공! 사진 속 장소를 찾았다면 그곳을 지나 가던 길을 따라 이동하세요. 다음에는 나무 이름을 가진 가게를 찾아보세요. 🌳"
+  },
+  {
+    title:"MISSION 02 · 나무 이름을 찾아라",
+    intro:"길을 따라가며 사진 속 가게를 찾아보세요. 간판을 찾았다면 이름을 확인해 보세요.",
+    image:"garosu.png",
+    question:"이 가게의 이름은 무엇일까요?",
+    choices:["소나무","가로수","은행나무","느티나무"], answer:1,
+    after:"두 번째 단서 성공! 이제 지금 가던 방향으로 쭉 직진하세요. 🚶 한동안 길을 따라 걷다 보면 삼거리가 나옵니다. 삼거리에 도착하면 잠시 멈춰 주변의 높은 간판을 살펴보세요. ♨️ 이 표시가 힌트입니다!"
+  },
+  {
+    title:"MISSION 03 · 삼거리의 ♨️를 찾아라",
+    intro:"삼거리에 도착했나요? 주변의 높은 간판들을 천천히 살펴보고 ♨️ 표시가 있는 간판을 찾아보세요.",
+    image:"bath.png",
+    question:"♨️ 표시 아래에 적혀 있는 장소의 이름은 무엇일까요?",
+    choices:["유구대중탕","유구수영장","유구찜질방","유구온천"], answer:0,
+    after:"세 번째 단서 성공! 제대로 찾아왔습니다. 이제 유구대중탕 간판이 있는 방향으로 이동하세요. 길을 따라가며 빨간 십자가 ➕가 있는 높은 간판을 찾아보세요."
+  },
+  {
+    title:"MISSION 04 · 빨간 십자가를 찾아라",
+    intro:"길을 따라가며 빨간 십자가가 있는 높은 간판을 찾아보세요.",
+    image:"hospital.png",
+    question:"간판에 적힌 도시의 이름은 무엇일까요?",
+    choices:["공주","대전","서울","세종"], answer:2,
+    after:"네 번째 단서 성공! 도서관이 점점 가까워지고 있어요. 📚 지금 가던 길을 계속 따라가며 주변의 파란색 도로 안내판을 찾아보세요."
+  },
+  {
+    title:"FINAL CLUE · 파란 안내판",
+    intro:"이번에는 먼저 사진을 보지 말고 길 주변의 파란색 안내판을 찾아보세요. 찾기 어렵다면 아래 사진을 힌트로 확인하세요.",
+    image:"sign80.png",
+    input:true, answerText:"80",
+    question:"유구도서관까지 몇 m 남았을까요?",
+    after:"찾았다! 🎯 유구도서관까지 80m! 안내판의 화살표가 가리키는 방향으로 이동하세요. 이제 도서관 입구를 직접 찾아볼 차례입니다."
+  },
+  {
+    title:"FINAL MISSION · 도서관을 찾아라!",
+    intro:"주변에서 사진 속 돌기둥을 찾아보세요. 여기까지 왔다면 정말 거의 다 왔습니다!",
+    image:"library_gate.png",
+    question:"돌기둥에 적힌 장소의 이름은 무엇일까요?",
+    choices:["유구중학교","유구도서관","유구문화관","유구자료관"], answer:1,
+    final:true
+  }
+];
+
+let idx = Number(localStorage.getItem("yugu-stage") || 0);
+if (idx < 0 || idx >= stages.length) idx = 0;
+
+const root = document.getElementById("screen");
+
+function dots(current){
+  return `<div class="progress">${stages.map((_,i)=>`<div class="dot ${i<=current?'on':''}"></div>`).join("")}</div>`;
+}
+
+function renderStart(){
+  root.innerHTML = `
+    <div class="card hero">
+      <div class="kicker">유구 골목 탐험 게임</div>
+      <h1>📚 도서관을<br>찾아라!</h1>
+      <p class="lead">사진과 길 위의 단서를 따라<br><b>유구도서관</b>을 찾아보세요.</p>
+      <div class="route">유구터미널에서 출발해 미션을 하나씩 해결하면<br>마지막 목적지에 가까워집니다.</div>
+      <div class="safety">⚠️ 이동할 때는 반드시 인도를 이용하고, 횡단보도에서는 차량을 확인해 주세요.</div>
+      <p class="small">도서관을 찾으면 2층 자료실에서 작은 선물도 기다리고 있어요. 🎁</p>
+      <button class="btn" id="startBtn">도서관 찾기 START!</button>
+      ${localStorage.getItem("yugu-started") ? `<button class="btn secondary" id="resetBtn">처음부터 다시 하기</button>` : ""}
+    </div>`;
+  document.getElementById("startBtn").onclick=()=>{ localStorage.setItem("yugu-started","1"); renderStage(); };
+  const rb=document.getElementById("resetBtn");
+  if(rb) rb.onclick=()=>{ localStorage.removeItem("yugu-stage"); idx=0; renderStage(); };
+}
+
+function renderStage(){
+  const s=stages[idx];
+  let answerUI = "";
+  if(s.input){
+    answerUI = `<input id="textAnswer" class="answer" inputmode="numeric" maxlength="3" placeholder="숫자를 입력하세요">
+                <button class="btn" id="checkText">정답 확인</button>`;
+  } else {
+    answerUI = `<div class="options">${s.choices.map((c,i)=>`<button class="option" data-i="${i}">${i+1}. ${c}</button>`).join("")}</div>`;
+  }
+  root.innerHTML = `
+    <div class="card">
+      ${dots(idx)}
+      <div class="kicker">${idx+1} / ${stages.length}</div>
+      <h2>${s.title}</h2>
+      <p>${s.intro}</p>
+      <img class="photo" src="${s.image}" alt="미션 단서 사진">
+      <div class="question">${s.question}</div>
+      ${answerUI}
+      <div id="feedback" class="feedback"></div>
+      <div id="nextBox" class="hidden">
+        <div class="clue" id="afterText"></div>
+        <button class="btn good" id="nextBtn">${s.final ? "결과 보기" : "다음 단서 보기"}</button>
+      </div>
+    </div>`;
+  if(s.input){
+    document.getElementById("checkText").onclick=()=>checkText(s);
+    document.getElementById("textAnswer").addEventListener("keydown",e=>{if(e.key==="Enter") checkText(s)});
+  } else {
+    document.querySelectorAll(".option").forEach(b=>b.onclick=()=>checkChoice(s,b));
+  }
+}
+
+function unlock(s){
+  const fb=document.getElementById("feedback");
+  fb.className="feedback ok"; fb.textContent="✅ 정답입니다!";
+  document.getElementById("afterText").textContent = s.final ? "유구도서관을 찾았습니다!" : s.after;
+  const box=document.getElementById("nextBox"); box.classList.remove("hidden");
+  document.getElementById("nextBtn").onclick=()=>{
+    if(s.final){ localStorage.setItem("yugu-stage","done"); renderFinish(); return; }
+    idx++; localStorage.setItem("yugu-stage", String(idx)); renderStage(); window.scrollTo(0,0);
+  };
+}
+
+function checkChoice(s,btn){
+  if(document.getElementById("nextBox").classList.contains("hidden")===false) return;
+  const n=Number(btn.dataset.i);
+  if(n===s.answer){
+    btn.classList.add("correct");
+    document.querySelectorAll(".option").forEach(x=>x.disabled=true);
+    unlock(s);
+  }else{
+    btn.classList.add("wrong");
+    const fb=document.getElementById("feedback");
+    fb.className="feedback no"; fb.textContent="❌ 다시 한번 주변의 단서를 살펴보세요.";
+    setTimeout(()=>btn.classList.remove("wrong"),700);
+  }
+}
+
+function checkText(s){
+  const input=document.getElementById("textAnswer");
+  const v=input.value.trim().replace(/m/gi,"");
+  if(v===s.answerText){
+    input.disabled=true; document.getElementById("checkText").disabled=true; unlock(s);
+  }else{
+    const fb=document.getElementById("feedback");
+    fb.className="feedback no"; fb.textContent="❌ 안내판을 다시 확인해 보세요.";
+  }
+}
+
+function renderFinish(){
+  root.innerHTML = `
+    <div class="card success">
+      <div class="trophy">🎉</div>
+      <div class="kicker">MISSION COMPLETE</div>
+      <h1 style="font-size:31px">도서관을 찾았다!</h1>
+      <p class="lead">축하합니다! 유구터미널에서 출발해<br>사진과 단서를 하나씩 따라오며<br><b>유구도서관</b>을 찾아냈습니다. 📚</p>
+      <div class="gift">
+        <div style="font-size:32px">🎁</div>
+        <h2 style="font-size:22px;margin-top:5px">선물을 받아가세요!</h2>
+        <p>모든 미션을 완료한 여러분을 위해<br>작은 선물이 준비되어 있어요.</p>
+        <p style="font-size:20px;font-weight:900">📍 도서관 2층 자료실</p>
+        <p class="small">직원에게 이 화면을 보여주고 선물을 받아가세요.</p>
+      </div>
+      <div style="font-weight:900">🏆 「도서관을 찾아라!」 탐험 성공</div>
+      <button class="btn secondary" id="restart">처음부터 다시 하기</button>
+    </div>`;
+  document.getElementById("restart").onclick=()=>{
+    localStorage.clear(); idx=0; renderStart(); window.scrollTo(0,0);
+  };
+}
+
+if(localStorage.getItem("yugu-stage")==="done") renderFinish();
+else if(localStorage.getItem("yugu-started")) renderStage();
+else renderStart();
+</script>
+</body>
+</html>
