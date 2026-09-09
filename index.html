@@ -25,7 +25,7 @@ body:before{
 .card{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px;overflow:hidden}
 .hero{text-align:center;padding:28px 20px}
 .kicker{display:inline-block;background:#e8f5ee;color:var(--accent);font-weight:800;border-radius:999px;padding:7px 11px;font-size:12px;margin-bottom:12px}
-h1{font-size:34px;line-height:1.05;margin:4px 0 14px;letter-spacing:-.06em}
+h1{font-size:30px;white-space:nowrap;line-height:1.05;margin:4px 0 14px;letter-spacing:-.06em}
 h2{font-size:24px;line-height:1.25;margin:0 0 10px;letter-spacing:-.045em}
 p{line-height:1.7;margin:8px 0}
 .lead{color:#475467;font-size:16px}
@@ -70,54 +70,12 @@ p{line-height:1.7;margin:8px 0}
 </main>
 <script>
 const stages = [
-  {
-    title:"MISSION 01 · 파란 간판을 찾아라",
-    intro:"터미널 밖으로 나와 주변을 살펴보세요. 사진 속 파란색 간판의 모양과 주변 모습을 보고 같은 장소를 직접 찾아보세요. 글자는 일부 가려져 있어요.",
-    image:"paris.png",
-    question:"PARIS는 어느 나라의 수도일까요?",
-    choices:["영국","프랑스","미국","일본"], answer:1,
-    after:"첫 번째 단서 성공! 사진 속 장소를 찾았다면 그곳을 지나 가던 길을 따라 이동하세요. 다음에는 나무 이름을 가진 가게를 찾아보세요. 🌳"
-  },
-  {
-    title:"MISSION 02 · 나무 이름을 찾아라",
-    intro:"길을 따라가며 사진 속 가게를 찾아보세요. 사진 속 가게를 직접 찾아 간판의 이름을 확인해 보세요. 사진에서는 정답 글자를 가려두었어요.",
-    image:"garosu.png",
-    question:"이 가게의 이름은 무엇일까요?",
-    choices:["소나무","가로수","은행나무","느티나무"], answer:1,
-    after:"두 번째 단서 성공! 이제 지금 가던 방향으로 쭉 직진하세요. 🚶 한동안 길을 따라 걷다 보면 삼거리가 나옵니다. 삼거리에 도착하면 잠시 멈춰 주변의 높은 간판을 살펴보세요. ♨️ 이 표시가 힌트입니다!"
-  },
-  {
-    title:"MISSION 03 · 삼거리의 ♨️를 찾아라",
-    intro:"삼거리에 도착했나요? 주변의 높은 간판들을 천천히 살펴보고 ♨️ 표시가 있는 간판을 직접 찾아보세요. 정답은 현장 간판에서 확인해야 해요.",
-    image:"bath.png",
-    question:"♨️ 표시 아래에 적혀 있는 장소의 이름은 무엇일까요?",
-    choices:["유구대중탕","유구수영장","유구찜질방","유구온천"], answer:0,
-    after:"세 번째 단서 성공! 제대로 찾아왔습니다. 이제 유구대중탕 간판이 있는 방향으로 이동하세요. 길을 따라가며 빨간 십자가 ➕가 있는 높은 간판을 찾아보세요."
-  },
-  {
-    title:"MISSION 04 · 빨간 십자가를 찾아라",
-    intro:"길을 따라가며 빨간 십자가가 있는 높은 간판을 직접 찾아보세요. 사진에서는 병원 이름을 가려두었어요.",
-    image:"hospital.png",
-    question:"간판에 적힌 도시의 이름은 무엇일까요?",
-    choices:["공주","대전","서울","세종"], answer:2,
-    after:"네 번째 단서 성공! 도서관이 점점 가까워지고 있어요. 📚 지금 가던 길을 계속 따라가며 주변의 파란색 도로 안내판을 찾아보세요."
-  },
-  {
-    title:"FINAL CLUE · 파란 안내판",
-    intro:"이번에는 먼저 사진을 보지 말고 길 주변의 파란색 안내판을 찾아보세요. 찾기 어렵다면 아래 사진을 힌트로 확인하세요. 거리 숫자는 사진에서 가려져 있으니 현장에서 직접 찾아야 합니다.",
-    image:"sign80.png",
-    input:true, answerText:"80",
-    question:"유구도서관까지 몇 m 남았을까요?",
-    after:"찾았다! 🎯 유구도서관까지 80m! 안내판의 화살표가 가리키는 방향으로 이동하세요. 이제 도서관 입구를 직접 찾아볼 차례입니다."
-  },
-  {
-    title:"FINAL MISSION · 도서관을 찾아라!",
-    intro:"주변에서 사진 속 돌기둥을 직접 찾아보세요. 돌기둥의 글자는 사진에서 가려져 있으니 현장에서 확인해야 합니다!",
-    image:"library_gate.png",
-    question:"돌기둥에 적힌 장소의 이름은 무엇일까요?",
-    choices:["유구중학교","유구도서관","유구문화관","유구자료관"], answer:1,
-    final:true
-  }
+  {title:"MISSION 01 · 파란 간판을 찾아라",intro:"터미널 밖으로 나와 사진 속 파란 간판을 찾아보세요.",image:"paris.png?v=4",question:"PARIS는 어느 나라의 수도일까요?",choices:["영국","프랑스","미국","일본"],answer:1},
+  {title:"MISSION 02 · 나무 이름을 찾아라",intro:"길을 따라가며 사진 속 가게를 찾아 간판을 확인하세요.",image:"garosu.png?v=4",question:"이 가게의 이름은 무엇일까요?",choices:["소나무","가로수","은행나무","느티나무"],answer:1},
+  {title:"MISSION 03 · 삼거리의 ♨️를 찾아라",intro:"가던 방향으로 쭉 직진해 삼거리까지 가세요. 삼거리에서 ♨️ 표시가 있는 높은 간판을 찾아보세요.",image:"bath.png?v=4",question:"♨️ 표시가 있는 장소의 이름은 무엇일까요?",choices:["유구대중탕","유구수영장","유구찜질방","유구온천"],answer:0},
+  {title:"MISSION 04 · 빨간 십자가를 찾아라",intro:"유구대중탕 간판이 보이는 방향으로 이동해 빨간 십자가 ➕가 있는 높은 간판을 찾아보세요.",image:"hospital.png?v=4",question:"간판에 적힌 도시의 이름은 무엇일까요?",choices:["공주","대전","서울","세종"],answer:2},
+  {title:"FINAL CLUE · 파란 안내판",intro:"가던 길을 따라가며 파란색 도로 안내판을 찾아보세요.",image:"sign80.png?v=4",question:"유구도서관까지 몇 m 남았을까요?",choices:["30m","50m","80m","100m"],answer:2},
+  {title:"FINAL MISSION · 도서관을 찾아라!",intro:"안내판의 화살표 방향으로 이동해 사진 속 돌기둥을 찾아보세요.",image:"library_gate.png?v=4",question:"돌기둥에 적힌 도서관 이름은 무엇일까요?",choices:["유구","신풍","공주","웅진"],answer:0,final:true}
 ];
 
 let idx = Number(localStorage.getItem("yugu-stage") || 0);
@@ -133,7 +91,7 @@ function renderStart(){
   root.innerHTML = `
     <div class="card hero">
       <div class="kicker">유구 골목 탐험 게임</div>
-      <h1>📚 도서관을<br>찾아라!</h1>
+      <h1>📚 도서관을 찾아라!</h1>
       <p class="lead">사진과 길 위의 단서를 따라<br><b>유구도서관</b>을 찾아보세요.</p>
       <div class="route">유구터미널에서 출발해 미션을 하나씩 해결하면<br>마지막 목적지에 가까워집니다.</div>
       <div class="safety">⚠️ 이동할 때는 반드시 인도를 이용하고, 횡단보도에서는 차량을 확인해 주세요.</div>
@@ -165,10 +123,6 @@ function renderStage(){
       <div class="question">${s.question}</div>
       ${answerUI}
       <div id="feedback" class="feedback"></div>
-      <div id="nextBox" class="hidden">
-        <div class="clue" id="afterText"></div>
-        <button class="btn good" id="nextBtn">${s.final ? "결과 보기" : "다음 단서 보기"}</button>
-      </div>
     </div>`;
   if(s.input){
     document.getElementById("checkText").onclick=()=>checkText(s);
@@ -180,17 +134,24 @@ function renderStage(){
 
 function unlock(s){
   const fb=document.getElementById("feedback");
-  fb.className="feedback ok"; fb.textContent="✅ 정답입니다!";
-  document.getElementById("afterText").textContent = s.final ? "유구도서관을 찾았습니다!" : s.after;
-  const box=document.getElementById("nextBox"); box.classList.remove("hidden");
-  document.getElementById("nextBtn").onclick=()=>{
-    if(s.final){ localStorage.setItem("yugu-stage","done"); renderFinish(); return; }
-    idx++; localStorage.setItem("yugu-stage", String(idx)); renderStage(); window.scrollTo(0,0);
-  };
+  fb.className="feedback ok";
+  fb.textContent=s.final ? "✅ 정답입니다! 도서관을 찾았습니다!" : "✅ 정답입니다! 2초 후 다음 미션으로 이동합니다.";
+  document.querySelectorAll(".option").forEach(x=>x.disabled=true);
+  setTimeout(()=>{
+    if(s.final){
+      localStorage.setItem("yugu-stage","done");
+      renderFinish();
+    }else{
+      idx++;
+      localStorage.setItem("yugu-stage",String(idx));
+      renderStage();
+      window.scrollTo(0,0);
+    }
+  },2000);
 }
 
 function checkChoice(s,btn){
-  if(document.getElementById("nextBox").classList.contains("hidden")===false) return;
+  if(btn.disabled) return;
   const n=Number(btn.dataset.i);
   if(n===s.answer){
     btn.classList.add("correct");
