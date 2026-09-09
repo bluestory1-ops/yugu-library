@@ -70,12 +70,12 @@ p{line-height:1.7;margin:8px 0}
 </main>
 <script>
 const stages = [
-  {title:"MISSION 01 · 파란 간판을 찾아라",intro:"터미널 밖으로 나와 사진 속 파란 간판을 찾아보세요.",image:"paris.png?v=4",question:"PARIS는 어느 나라의 수도일까요?",choices:["영국","프랑스","미국","일본"],answer:1},
-  {title:"MISSION 02 · 나무 이름을 찾아라",intro:"길을 따라가며 사진 속 가게를 찾아 간판을 확인하세요.",image:"garosu.png?v=4",question:"이 가게의 이름은 무엇일까요?",choices:["소나무","가로수","은행나무","느티나무"],answer:1},
-  {title:"MISSION 03 · 삼거리의 ♨️를 찾아라",intro:"가던 방향으로 쭉 직진해 삼거리까지 가세요. 삼거리에서 ♨️ 표시가 있는 높은 간판을 찾아보세요.",image:"bath.png?v=4",question:"♨️ 표시가 있는 장소의 이름은 무엇일까요?",choices:["유구대중탕","유구수영장","유구찜질방","유구온천"],answer:0},
-  {title:"MISSION 04 · 빨간 십자가를 찾아라",intro:"유구대중탕 간판이 보이는 방향으로 이동해 빨간 십자가 ➕가 있는 높은 간판을 찾아보세요.",image:"hospital.png?v=4",question:"간판에 적힌 도시의 이름은 무엇일까요?",choices:["공주","대전","서울","세종"],answer:2},
-  {title:"FINAL CLUE · 파란 안내판",intro:"가던 길을 따라가며 파란색 도로 안내판을 찾아보세요.",image:"sign80.png?v=4",question:"유구도서관까지 몇 m 남았을까요?",choices:["30m","50m","80m","100m"],answer:2},
-  {title:"FINAL MISSION · 도서관을 찾아라!",intro:"안내판의 화살표 방향으로 이동해 사진 속 돌기둥을 찾아보세요.",image:"library_gate.png?v=4",question:"돌기둥에 적힌 도서관 이름은 무엇일까요?",choices:["유구","신풍","공주","웅진"],answer:0,final:true}
+  {title:"MISSION 01 · 파란 간판을 찾아라",intro:"터미널 밖으로 나와 주변을 둘러보세요! 👀 사진 속 파란 간판과 같은 장소를 찾아보세요!",image:"paris.png?v=5",question:"첫 번째 퀴즈! PARIS는 어느 나라의 수도일까요?",choices:["영국","프랑스","미국","일본"],answer:1},
+  {title:"MISSION 02 · 나무 이름을 찾아라",intro:"주변을 둘러보세요! 👀 사진 속 가게를 찾아 간판을 확인해 보세요!",image:"garosu.png?v=5",question:"사진 속 가게를 찾았나요? 가게 이름은 무엇일까요?",choices:["소나무","가로수","은행나무","느티나무"],answer:1},
+  {title:"MISSION 03 · 삼거리의 ♨️를 찾아라",intro:"지금 가던 방향으로 쭉 직진하세요! 🚶 삼거리가 나오면 멈춰서 ♨️ 표시가 있는 높은 간판을 찾아보세요!",image:"bath.png?v=5",question:"♨️ 표시를 찾았나요? 이곳의 이름은 무엇일까요?",choices:["유구대중탕","유구수영장","유구찜질방","유구온천"],answer:0},
+  {title:"MISSION 04 · 빨간 십자가를 찾아라",intro:"유구대중탕 간판이 보이는 방향으로 가볼까요? 이번에는 빨간 십자가 ➕가 있는 높은 간판을 찾아보세요!",image:"hospital.png?v=5",question:"빨간 십자가 간판을 찾았나요? 간판에 적힌 도시 이름은 무엇일까요?",choices:["공주","대전","서울","세종"],answer:2},
+  {title:"FINAL CLUE · 파란 안내판",intro:"도서관이 가까워지고 있어요! 📚 가던 길을 따라가며 파란색 안내판을 찾아보세요!",image:"sign80.png?v=5",question:"안내판을 자세히 볼까요? 유구도서관까지 몇 m 남았을까요?",choices:["30m","50m","80m","100m"],answer:2},
+  {title:"FINAL MISSION · 도서관을 찾아라!",intro:"거의 다 왔어요! 🎯 안내판의 화살표 방향으로 가서 사진 속 돌기둥을 찾아보세요!",image:"library_gate.png?v=5",question:"마지막 문제예요! 돌기둥에 적힌 도서관 이름은 무엇일까요?",choices:["유구","신풍","공주","웅진"],answer:0,final:true}
 ];
 
 let idx = Number(localStorage.getItem("yugu-stage") || 0);
@@ -135,7 +135,7 @@ function renderStage(){
 function unlock(s){
   const fb=document.getElementById("feedback");
   fb.className="feedback ok";
-  fb.textContent=s.final ? "✅ 정답입니다! 도서관을 찾았습니다!" : "✅ 정답입니다! 2초 후 다음 미션으로 이동합니다.";
+  fb.textContent=s.final ? "🎉 정답이에요! 드디어 도서관을 찾았어요!" : "🎉 정답이에요! 다음 미션으로 출발!";
   document.querySelectorAll(".option").forEach(x=>x.disabled=true);
   setTimeout(()=>{
     if(s.final){
@@ -160,7 +160,7 @@ function checkChoice(s,btn){
   }else{
     btn.classList.add("wrong");
     const fb=document.getElementById("feedback");
-    fb.className="feedback no"; fb.textContent="❌ 다시 한번 주변의 단서를 살펴보세요.";
+    fb.className="feedback no"; fb.textContent="❌ 아쉬워요! 주변의 단서를 다시 한번 살펴보세요. 👀";
     setTimeout(()=>btn.classList.remove("wrong"),700);
   }
 }
